@@ -1,0 +1,55 @@
+{
+  "plugins": ["react", "react-hooks", "react-native", "prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module",
+    "useJSXTextNode": false
+  },
+  "env": {
+    "react-native/react-native": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-native/all",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": ["__tests__/*"],
+  "rules": {
+    "react-native/no-raw-text": 0,
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": { "multiline": true, "minProperties": 2 },
+        "ExportDeclaration": { "multiline": true }
+      }
+    ],
+    "react-native/no-inline-styles": 0,
+    "indent": [
+      "error",
+      2,
+      {
+        "ignoredNodes": ["TemplateLiteral"]
+      }
+    ],
+    "react/self-closing-comp": ["error", {
+      "component": true,
+      "html": true
+    }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "react/display-name": 0,
+    "comma-dangle": 0,
+    "react/prop-types": "off"
+  }
+}
