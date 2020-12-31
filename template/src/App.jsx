@@ -1,5 +1,6 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native'
+import React, { useState } from 'react'
+import { useCavy } from 'cavy'
+import { SafeAreaView, Button, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native'
 import {
   Header,
   LearnMoreLinks,
@@ -8,42 +9,57 @@ import {
   ReloadInstructions
 } from 'react-native/Libraries/NewAppScreen'
 
-const App = () => (
-  <>
-    <StatusBar barStyle="dark-content" />
-    <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
-        <Header />
-        {global.HermesInternal == null ? null : (
-          <View style={styles.engine}>
-            <Text style={styles.footer}>Engine: Hermes</Text>
+const App = () => {
+  const [show, setShow] = useState(false)
+  const generateTestHook = useCavy()
+
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
+          <Header />
+          {global.HermesInternal == null ? null : (
+            <View style={styles.engine}>
+              <Text style={styles.footer}>Engine: Hermes</Text>
+            </View>
+          )}
+          <View ref={generateTestHook('Container')} style={styles.body}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>See Your Changes</Text>
+              <Text style={styles.sectionDescription}>
+                <ReloadInstructions />
+              </Text>
+            </View>
+            <Button ref={generateTestHook('Button')} title="heloo" onPress={() => setShow(!show)} />
+            {show && (
+              <View
+                ref={generateTestHook('Box')}
+                style={{
+                  width: 150,
+                  height: 150
+                }}
+              />
+            )}
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Debug</Text>
+              <Text style={styles.sectionDescription}>
+                <DebugInstructions />
+              </Text>
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Learn More</Text>
+              <Text style={styles.sectionDescription}>
+                Read the docs to discover what to do next:
+              </Text>
+            </View>
+            <LearnMoreLinks />
           </View>
-        )}
-        <View style={styles.body}>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>See Your Changes</Text>
-            <Text style={styles.sectionDescription}>
-              <ReloadInstructions />
-            </Text>
-          </View>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Debug</Text>
-            <Text style={styles.sectionDescription}>
-              <DebugInstructions />
-            </Text>
-          </View>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Learn More</Text>
-            <Text style={styles.sectionDescription}>
-              Read the docs to discover what to do next:
-            </Text>
-          </View>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  </>
-)
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  )
+}
 
 const styles = StyleSheet.create({
   body: { backgroundColor: Colors.white },
