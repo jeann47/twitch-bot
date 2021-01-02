@@ -11,9 +11,9 @@
     "lint-fix": "eslint src --ext .js,.jsx --fix",
     "lint-check": "eslint src --ext .js,.jsx",
     "test-android": "npx cavy run-android",
-    "test-ios": "npx cavy run-android",
+    "test-ios": "npx cavy run-ios",
     "fast-test-android": "npx cavy run-android --skipbuild",
-    "fast-test-ios": "npx cavy run-android --skipbuild",
+    "fast-test-ios": "npx cavy run-ios --skipbuild",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -55,7 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn test-android || yarn test-ios"
+      "pre-commit": "lint-staged && yarn test-ios || yarn test-android"
     }
   },
   "lint-staged": {
