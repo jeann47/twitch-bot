@@ -1,0 +1,63 @@
+stages:
+  - test
+
+### TEST JOBS ###
+Prettier Check:
+  extends: .prettier
+  when: manual
+  only:
+    refs:
+      - master
+      - develop
+
+Lint Check:
+  extends: .lint
+  when: manual
+  only:
+    refs:
+      - master
+      - develop
+
+Manual Prettier Check:
+  extends: .prettier
+  when: manual
+  except:
+    refs:
+      - master
+      - develop
+
+Manual Lint Check:
+  extends: .lint
+  when: manual
+  except:
+    refs:
+      - master
+      - develop
+
+### TEMPLATES ###
+## TESTS ##
+.prettier:
+  extends: .base_test
+  script:
+    - npm run prettier-check
+
+.lint:
+  extends: .base_test
+  script:
+    - npm run lint-check
+
+.base_test:
+  extends: .exclude_wip
+  stage: test
+  image: node:10.20.0
+  cache:
+    paths:
+      - node_modules
+  before_script:
+    - yarn
+
+## MISC ##
+.exclude_wip:
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /^WIP/i
